@@ -16,8 +16,8 @@
 
 void ledInit(void){
     softPwmCreate(LedPinRed,  0, 100);
-    softPwmCreate(LedPinGreen,0, 100);
-    softPwmCreate(LedPinBlue, 0, 100);
+    softPwmCreate(LedPinGreen,50, 100);
+    softPwmCreate(LedPinBlue, 50, 100);
 }
 
 void ledColorSet(uchar r_val, uchar g_val, uchar b_val){
@@ -42,10 +42,10 @@ int main(void){
     switch(mode) {
         case 1:
 	     while(1){
-		ledColorSet(r, g, b);
 		printf("Enter red green blue (ex:0 0 0) values: ");
 		scanf("%d %d %d", &r, &g, &b);
 		printf("r: %d, g: %d, b: %d\n", r, g, b);
+                ledColorSet(r, g, b);
 	     }
 	     break;
         case 2:
