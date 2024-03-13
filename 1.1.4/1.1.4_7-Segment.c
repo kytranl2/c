@@ -25,14 +25,28 @@ void init(void){
 	digitalWrite(SRCLK, 0);
 }
 
+void printBinary(unsigned char c) {
+	unsigned char size = sizeof(c) * 8;
+	unsigned char mask = 1 << (size - 1);
+	for (int i = 0;i<size;i++) {
+		putchar((c & mask) ? '1' : '0');
+		mask >>= 1;
+	}
+	printf("\n");
+}
+
 void hc595_shift(unsigned char dat){
 	int i;
 
 	for(i=0;i<8;i++){
-		printf("dat = %d\n", dat);
-		printf("hex dat = %08x\n", dat);
-		printf("dat << i = %d\n", dat << i);
-		printf("hex dat << i = %08x\n", dat << i);
+		//printf("dat = %d\n", dat);
+		//printf("hex dat = %08x\n", dat);
+		//printf("dat << i = %d\n", dat << i);
+		//printf("hex dat << i = %08x\n", dat << i);
+		printf("binary rep of %u is: ", dat);
+		printBinary(dat);
+		printf("binary rep of 0x80 & dat << i is: ");
+		printBinary(0x80 & (dat << i));
 		digitalWrite(SDI, 0x80 & (dat << i));
 		digitalWrite(SRCLK, 1);
 		delay(1);
